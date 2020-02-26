@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Menu, Icon, Select } from "antd";
 import logo from "../../assets/img/logo192.png";
-import './index.css'
+import "./index.css";
+import { Translation } from "react-i18next";
+import { connect } from "react-redux";
+import { TOEN, TOZH } from "../../redux/action";
+import { getItem } from "../../utils/localstorage";
 
 const { SubMenu } = Menu;
 const { Option } = Select;
@@ -15,13 +19,18 @@ class Header extends Component {
   handleClick = e => {
     console.log("click ", e);
     this.setState({
-      current: e.key
+      current: e.key,
+      lang: "zh"
     });
   };
 
   // 切换语言
   handleChange = e => {
-    console.log(e);
+    if (e === "zh") {
+      this.props.TOZH("zh");
+    } else if (e === "en") {
+      this.props.TOEN("en");
+    }
   };
 
   render() {
@@ -36,30 +45,49 @@ class Header extends Component {
           <Menu.Item key="logo">
             <img src={logo} alt="" style={{ width: 30 }} />
           </Menu.Item>
-          <Menu.Item key="home">首页</Menu.Item>
-          <Menu.Item key="Provids">主网启动</Menu.Item>
-          <Menu.Item key="Economics">经济与治理</Menu.Item>
-          <Menu.Item key="developers">开发者</Menu.Item>
+          <Menu.Item key="home">
+            <Translation>{t => t("首页")}</Translation>
+          </Menu.Item>
+          <Menu.Item key="Provids">
+            <Translation>{t => t("主网启动")}</Translation>
+          </Menu.Item>
+          <Menu.Item key="Economics">
+            <Translation>{t => t("经济与治理")}</Translation>
+          </Menu.Item>
+          <Menu.Item key="developers">
+            <Translation>{t => t("开发者")}</Translation>
+          </Menu.Item>
           <SubMenu
             title={
               <span className="submenu-title-wrapper">
                 <Icon type="setting" />
-                工具产品
+                <Translation>{t => t("工具产品")}</Translation>
               </span>
             }
           >
             <Menu.ItemGroup>
-              <Menu.Item key="setting:1">浏览器</Menu.Item>
-              <Menu.Item key="setting:2">钱包APP</Menu.Item>
-              <Menu.Item key="setting:3">Web钱包</Menu.Item>
-              <Menu.Item key="setting:4">浏览器插件</Menu.Item>
+              <Menu.Item key="setting:1">
+                <Translation>{t => t("浏览器")}</Translation>
+              </Menu.Item>
+              <Menu.Item key="setting:2">
+                <Translation>{t => t("钱包APP")}</Translation>
+              </Menu.Item>
+              <Menu.Item key="setting:3">
+                <Translation>{t => t("Web钱包")}</Translation>
+              </Menu.Item>
+              <Menu.Item key="setting:4">
+                <Translation>{t => t("浏览器插件")}</Translation>
+              </Menu.Item>
             </Menu.ItemGroup>
           </SubMenu>
-          <Menu.Item key="test">测试网&配套设施</Menu.Item>
-          <Menu.Item key="team">关于我们-团队</Menu.Item>
+          <Menu.Item key="test">
+            <Translation>{t => t("测试网&配置设施")}</Translation>
+          </Menu.Item>
+          <Menu.Item key="team">
+            <Translation>{t => t("关于我们-团队")}</Translation>
+          </Menu.Item>
           <Select
-            defaultValue="zh"
-            style={{ width: 120 }}
+            defaultValue={getItem("lang").lang}
             onChange={this.handleChange}
           >
             <Option value="zh">简体中文</Option>
@@ -71,4 +99,21 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state, props) => {
+  return {
+    lang: 111
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    TOEN(lang) {
+      dispatch(TOEN(lang));
+    },
+    TOZH(lang) {
+      dispatch(TOZH(lang));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -3,3 +3,7 @@
   top: 0;
   width: 100%;
 }
+.header .ant-select {
+  width: 120px;
+  margin-left: 60px;
+}
