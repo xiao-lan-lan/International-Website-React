@@ -1,10 +1,20 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route,Redirect } from "react-router-dom";
+import Layout from "./pages/layout";
 
 function App() {
   return (
     <div className="App">
-      根组件
+      <Router>
+        <Route
+          path=""
+          render={() => {
+            return <Redirect to="/home" />;
+          }}
+        />
+        <Route path="/home" component={Layout} />
+      </Router>
     </div>
   );
 }
