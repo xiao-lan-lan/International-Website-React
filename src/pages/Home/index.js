@@ -4,7 +4,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        首页
+        首页首页首页
       </div>
     );
   }

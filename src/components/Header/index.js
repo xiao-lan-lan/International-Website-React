@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Menu, Icon, Select } from "antd";
 import logo from "../../assets/img/logo192.png";
+import './index.css'
 
 const { SubMenu } = Menu;
 const { Option } = Select;
