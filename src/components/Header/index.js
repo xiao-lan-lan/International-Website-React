@@ -18,10 +18,6 @@ class Header extends Component {
   // 点击导航
   handleClick = e => {
     console.log("click ", e);
-    this.setState({
-      current: e.key,
-      lang: "zh"
-    });
   };
 
   // 切换语言
@@ -100,9 +96,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return {
-    lang: 111
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, props) => {
